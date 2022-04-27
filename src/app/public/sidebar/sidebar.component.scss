@@ -1,0 +1,34 @@
+mat-sidenav-container {
+  height: 91.8%;
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  padding: 16px;
+}
+
+mat-sidenav {
+  width: 250px; 
+  background: #212121;
+}
+
+ul {
+  list-style: none;
+  width: 100%;
+
+  li {
+    margin: 1.5rem 0;
+
+
+    a{
+      h2:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+
+mat-icon{
+  margin-right: 0.5rem;
+}

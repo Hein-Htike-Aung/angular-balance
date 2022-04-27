@@ -1,0 +1,26 @@
+<mat-toolbar class="d-flex justify-content-between">
+    <h1 class="accent-color logo">Balance</h1>
+    <ul>
+        <li>
+            <a *ngIf="(isLoggedIn$ | async) === false" [routerLink]="['/sign-in']" routerLinkActive="active"  class="me-3"><mat-icon>lock_open</mat-icon> Sign-in</a>
+        </li>
+        <li>
+            <a *ngIf="(isLoggedIn$ | async) === false" [routerLink]="['/sign-up']" routerLinkActive="active">
+                <mat-icon>assignment_ind</mat-icon> Sign-up
+            </a>
+        </li>
+        <li>
+            <a *ngIf="(isLoggedIn$ | async) === true" class="me-3">
+                <mat-icon>person_outline</mat-icon> {{ loggedInUserName }}
+            </a>
+        </li>
+        <li>
+            <a *ngIf="(isLoggedIn$ | async) === true" class="me-3" [routerLink]="['/profile']" routerLinkActive="active" >
+                <mat-icon>settings</mat-icon> Profile
+            </a>
+        </li>
+        <li>
+            <a (click)="logout()" *ngIf="(isLoggedIn$ | async) === true"><mat-icon>exit_to_app</mat-icon> Log Out</a>
+        </li>
+    </ul>
+</mat-toolbar>

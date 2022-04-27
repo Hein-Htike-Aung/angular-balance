@@ -1,0 +1,201 @@
+<app-sidebar>
+  <div class="container">
+    <div class="d-flex justify-content-between mb-5">
+      <div class="page-header">
+        <mat-icon class="me-1">label_important</mat-icon>
+        <span>Dashboard</span>
+      </div>
+      <h1>{{ date }}</h1>
+    </div>
+
+    <div class="row">
+      <div class="col hor-line" style="height: 100vh">
+        <h1>Transactions</h1>
+        <mat-tab-group color="accent">
+          <mat-tab label="Income">
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let i of incomesForTransaction">
+                <mat-expansion-panel-header>
+                  <mat-panel-title
+                    ><mat-icon style="margin-right: 1rem" color="accent"
+                      >add</mat-icon
+                    >
+                    {{ i.name }}</mat-panel-title
+                  >
+                  <mat-panel-description
+                    >{{ i.amount | number }} MMK</mat-panel-description
+                  >
+                </mat-expansion-panel-header>
+                <div>
+                  <h3>Category: {{ i.category?.name }}</h3>
+                  <h3>Account: {{ i.account?.name }}</h3>
+                  <h3>Date: {{ i.date | date }}</h3>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+          <mat-tab label="Expense">
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let e of expensesForTransaction">
+                <mat-expansion-panel-header>
+                  <mat-panel-title
+                    ><mat-icon style="margin-right: 1rem" color="warn"
+                      >remove_circle_outline</mat-icon
+                    >
+                    {{ e.name }}</mat-panel-title
+                  >
+                  <mat-panel-description
+                    >{{ e.amount | number }} MMK</mat-panel-description
+                  >
+                </mat-expansion-panel-header>
+                <div>
+                  <h3>Category: {{ e.category?.name }}</h3>
+                  <h3>Account: {{ e.account?.name }}</h3>
+                  <h3>Date: {{ e.date | date }}</h3>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="col hor-line">
+        <div class="row">
+          <div class="col">
+            <h2>Income</h2>
+            <mat-card>
+              <div class="row">
+                <div class="col-3 income-icon">
+                  <mat-icon color="accent" style="font-size: 30px"
+                    >fast_forward</mat-icon
+                  >
+                </div>
+                <div class="col">
+                  <div>{{ currentMonthIncome | number }} MMK</div>
+                  <div>Month ({{ month }})</div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div class="col">
+            <h2>Expense</h2>
+            <mat-card>
+              <div class="row">
+                <div class="col-3 expense-icon">
+                  <mat-icon color="warn" style="font-size: 30px"
+                    >fast_forward</mat-icon
+                  >
+                </div>
+                <div class="col">
+                  <div>{{ currentMonthExpense | number }} MMK</div>
+                  <div>Month ({{ month }})</div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <h2>Income Vs Expense ({{ year }})</h2>
+          <!-- Income and Expense Chart -->
+          <google-chart
+            *ngIf="incomeAndExpenseLinesChart != null"
+            style="width: 500px; height: 200px"
+            [title]="incomeAndExpenseLinesChart?.title"
+            [type]="incomeAndExpenseLinesChart.type"
+            [data]="incomeAndExpenseLinesChart.data"
+            [columns]="incomeAndExpenseLinesChart?.columns"
+            [options]="incomeAndExpenseLinesChart.options"
+          >
+          </google-chart>
+        </div>
+        <div class="row mt-5">
+          <div class="col">
+            <h2 class="mat-body-2">Income By Category</h2>
+            <!-- Income By Category -->
+            <google-chart
+              class="pie-chart"
+              *ngIf="incomeByCategoryPieChart != null"
+              [title]="incomeByCategoryPieChart?.title"
+              [type]="incomeByCategoryPieChart.type"
+              [data]="incomeByCategoryPieChart.data"
+              [columns]="incomeByCategoryPieChart?.columns"
+              [options]="incomeByCategoryPieChart.options"
+            >
+            </google-chart>
+          </div>
+          <div class="col">
+            <h2 class="mat-body-2">Expense By Category</h2>
+            <!-- Expense By Category -->
+            <google-chart
+              class="pie-chart"
+              *ngIf="expenseByCategoryPieChart != null"
+              [title]="expenseByCategoryPieChart?.title"
+              [type]="expenseByCategoryPieChart.type"
+              [data]="expenseByCategoryPieChart.data"
+              [columns]="expenseByCategoryPieChart?.columns"
+              [options]="expenseByCategoryPieChart.options"
+            >
+            </google-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <mat-card class="mb-4">
+          <mat-card-title>Balance</mat-card-title>
+          <mat-card-content>
+            <h2 class="accent-color mt-3">{{ totalBalance | number }} MMK</h2>
+          </mat-card-content>
+        </mat-card>
+        <!-- Account Balance -->
+        <div class="mb-4">
+          <h2>Account Balance</h2>
+          <google-chart
+            *ngIf="accountBalanceBarChart != null"
+            style="width: 300px; height: 150px"
+            [title]="accountBalanceBarChart?.title"
+            [type]="accountBalanceBarChart.type"
+            [data]="accountBalanceBarChart.data"
+            [columns]="accountBalanceBarChart?.columns"
+            [options]="accountBalanceBarChart.options"
+          >
+          </google-chart>
+          <div *ngIf="accountBalanceBarChart == null">
+            No Data to show...
+          </div>
+        </div>
+        <mat-card>
+          <mat-card-title style="margin-bottom: 2rem"
+            >Quick Menus</mat-card-title
+          >
+          <mat-card-content>
+            <ul>
+              <li>
+                <a routerLink="/balance"
+                  >Transactions <mat-icon>keyboard_arrow_right</mat-icon></a
+                >
+              </li>
+              <hr />
+              <li>
+                <a routerLink="/balance/income"
+                  >Income<mat-icon>keyboard_arrow_right</mat-icon></a
+                >
+              </li>
+              <hr />
+              <li>
+                <a routerLink="/balance/expense"
+                  >Expense<mat-icon>keyboard_arrow_right</mat-icon></a
+                >
+              </li>
+              <hr />
+              <li>
+                <a routerLink="/master/category"
+                  >Category<mat-icon>keyboard_arrow_right</mat-icon></a
+                >
+              </li>
+              <hr />
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</app-sidebar>

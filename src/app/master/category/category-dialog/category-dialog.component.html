@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+    <form [formGroup]="categoryForm">
+        <mat-form-field appearance="standard" color="accent">
+            <mat-label>Account Name</mat-label>
+            <input type="text" formControlName="name" matInput [errorStateMatcher]="errorMatcher">
+            <mat-error>
+                Name is required
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field color="accent">
+            <mat-label>Category Type</mat-label>
+            <mat-select formControlName="type">
+                <mat-option>None</mat-option>
+                <mat-option value="INCOME">Income</mat-option>
+                <mat-option value="EXPENSE">Expense</mat-option>
+            </mat-select>
+            <mat-error>
+                Category Type is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field color="accent">
+            <mat-label>Parent Category</mat-label>
+            <mat-select formControlName="parentCategoryId">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" color="accent">
+            <mat-label>Description</mat-label>
+            <input type="text" formControlName="description" matInput [errorStateMatcher]="errorMatcher">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>   
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close mat-dialog-close="true">
+    Close
+  </button>
+  <button [disabled]="categoryForm.invalid" (click)="save()" mat-button >Save</button>
+</mat-dialog-actions>

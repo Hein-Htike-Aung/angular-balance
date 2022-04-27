@@ -1,0 +1,17 @@
+<app-sidebar>
+  <div class="container">
+    <div class="page-header mb-5">
+      <mat-icon class="me-1">label_important</mat-icon>
+      <span>Accounting Actions</span>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <app-balance-form [title]="'Expense'" (onSubmit)="save($event)"></app-balance-form>
+      </div>
+      <div class="col">
+        <app-balance-form [title]="'Income'" (onSubmit)="save($event)"></app-balance-form>        
+      </div>
+    </div>
+  </div>
+</app-sidebar>

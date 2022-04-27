@@ -1,0 +1,14 @@
+<app-sidebar>
+  <div class="container">
+    <div class="page-header mb-5">
+      <mat-icon class="me-1">label_important</mat-icon>
+      <span>Incomes</span>
+    </div>
+
+    <app-balance-list
+      [balanceListInfo]="'INCOME'"
+      [balances]="balances"
+      (onDelete)="delete($event)"
+    ></app-balance-list>
+  </div>
+</app-sidebar>

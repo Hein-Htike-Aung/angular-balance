@@ -1,0 +1,15 @@
+<app-sidebar>
+  <div class="container">
+    <div class="page-header mb-5">
+      <mat-icon class="me-1">label_important</mat-icon>
+      <span>Expenses</span>
+    </div>
+
+    <app-balance-list
+      [balanceListInfo]="'EXPENSE'"
+      [balances]="balances"
+      (onDelete)="delete($event)"
+      (onEdit)="edit($event)"
+    ></app-balance-list>
+  </div>
+</app-sidebar>

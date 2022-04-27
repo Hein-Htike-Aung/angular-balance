@@ -1,0 +1,20 @@
+ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin-bottom: 0;
+
+    a {       
+        display: flex;
+        align-items: center;
+    }
+}
+
+mat-icon {
+    margin-right: 3px;
+}
+
+.logo {
+    font-size: 30px;
+    padding-left: 32px;
+}

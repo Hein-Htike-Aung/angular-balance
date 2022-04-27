@@ -1,0 +1,97 @@
+<app-sidebar>
+  <div class="container">
+    <div class="page-header mb-5">
+      <mat-icon class="me-1">label_important</mat-icon>
+      <span>Track Budget</span>
+    </div>
+
+    <!-- Search -->
+    <mat-form-field style="width: 200px" color="accent" class="me-4">
+      <input
+        #filterInput
+        matInput
+        (input)="filter(filterInput.value)"
+        placeholder="Search Categories..."
+        type="text"
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="legacy"
+      color="accent"
+      style="width: 300px"
+      class="me-4"
+    >
+      <mat-label>Choose Date Range</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRangeForm">
+        <input
+          matStartDate
+          formControlName="dateFrom"
+          placeholder="Start Date"
+        />
+        <input matEndDate formControlName="dateTo" placeholder="End Date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <button mat-raised-button (click)="dateSearch()">
+      <mat-icon>search</mat-icon> Search
+    </button>
+
+    <!-- Table -->
+    <!-- Table -->
+    <div class="mat-elevation-z8">
+      <table mat-table matSort [dataSource]="categoriesDataSource">
+        <ng-container matColumnDef="category">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let element">{{ element?.category }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="subcategory">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>
+            Sub Category
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.subcategory }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.amount | number }} MMK
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>
+            Category Type
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-flat-button
+              [color]="element.type === 'INCOME' ? 'primary' : 'warn'"
+            >
+              {{ element?.type }}
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No matching data</td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        *ngIf="categories?.length !== 0"
+        color="accent"
+        showFirstLastButtons
+        [pageSizeOptions]="[10, 20, 30, 40]"
+      ></mat-paginator>
+    </div>
+  </div>
+</app-sidebar>

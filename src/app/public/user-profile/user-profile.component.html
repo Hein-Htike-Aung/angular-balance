@@ -1,0 +1,81 @@
+<app-sidebar>
+  <div class="container">
+    <div class="page-header mb-5">
+      <mat-icon class="me-1">label_important</mat-icon>
+      <span>Configure Profile</span>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-card>
+          <mat-card-title class="mat-body-1">Credential Info</mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="credentialInfoForm" *ngIf="credentialInfoForm">
+              <mat-form-field appearance="legacy" color="accent">
+                <mat-label>Name</mat-label>
+                <input
+                  type="text"
+                  formControlName="name"
+                  matInput
+                  placeholder="Name"
+                />
+                <mat-error> Name is required </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" color="accent">
+                <mat-label>Email</mat-label>
+                <input
+                  type="text"
+                  formControlName="email"
+                  matInput
+                  placeholder="Email"
+                />
+                <mat-error> Email is required </mat-error>
+                <mat-error> Enter valid email address </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" color="accent">
+                <mat-label>Old Password</mat-label>
+                <input
+                  type="password"
+                  formControlName="oldPassword"
+                  matInput
+                  placeholder="Old Password"
+                />
+                <mat-error> Enter your password </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" color="accent">
+                <mat-label>New Password</mat-label>
+                <input
+                  type="password"
+                  formControlName="newPassword"
+                  matInput
+                  placeholder="New Password"
+                />
+                <mat-error> Enter new Password </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" color="accent">
+                <mat-label>Repeated Password</mat-label>
+                <input
+                  type="password"
+                  formControlName="repeatedPassword"
+                  matInput
+                  placeholder="Repeated Password"
+                />
+                <mat-error> Enter Repeated Password </mat-error>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button
+              (click)="save()"
+              [disabled]="credentialInfoForm?.invalid"
+              mat-raised-button
+            >
+              Save Changes
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+</app-sidebar>

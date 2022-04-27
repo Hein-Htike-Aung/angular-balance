@@ -1,0 +1,53 @@
+<!-- Side bar -->
+<mat-sidenav-container>
+  <!-- mode = over,side,push -->
+  <mat-sidenav #sidenav mode="side" [(opened)]="openSideBar" class="sidebar">
+    <ul>
+      <li>
+        <a [routerLink]="['/master/dashboard']" routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon>dashboard</mat-icon> Dashboard</h2></a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/balance']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          ><h2 class="page-header"><mat-icon>branding_watermark</mat-icon> Transactions</h2></a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/balance/expense']"
+          routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon> money_off</mat-icon> Expense</h2></a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/balance/income']"
+          routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon> attach_money</mat-icon> Income</h2></a
+        >
+      </li>      
+      <li>
+        <a [routerLink]="['/master/account']" routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon>account_balance_wallet</mat-icon> Account</h2></a
+        >
+      </li>
+      <li>
+        <a [routerLink]="['/master/track-budget']" routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon>track_changes</mat-icon> Track Budget</h2></a
+        >
+      </li>
+      <li>
+        <a [routerLink]="['/master/category']" routerLinkActive="active"
+          ><h2 class="page-header"><mat-icon>apps</mat-icon> Category</h2></a
+        >
+      </li>
+    </ul>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
